@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>{{now.month}}月{{ now.day }}日</h1>
+
+<h2>今日の予定</h2>
+{% for event in events %}
+<dl>
+    <dt>{{ event.date }}</dt>
+    {% for e in event.events %}
+    <dd>{{ e.print_start_date() }} {{ e.summary }}</dd>
+    {% endfor %}
+</dl>
+{% endfor %}
+
+
+</body>
+</html>
