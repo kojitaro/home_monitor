@@ -18,6 +18,15 @@
 </dl>
 {% endfor %}
 
+<h2>天気</h2>
+<dl>
+    {% for forecast in forecasts %}
+    <dt>{{ forecast.dateLabel }}</dt>
+    <dd><img src="{{ forecast.image }}">
+        <div>{{ forecast.minLabel }} / {{ forecast.maxLabel }}</div>
+    </dd>
+    {% endfor %}
+</dl>
 
 </body>
 </html>
