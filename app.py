@@ -1,6 +1,7 @@
 from flask import Flask, render_template, send_from_directory
 from api.gcalendar import get_calendar_events
 from api.weather import get_forecasts
+import netifaces
 
 app = Flask(__name__)
 
@@ -29,10 +30,18 @@ def index():
 
     forecasts = get_forecasts()
 
+    ipaddrs = []
+    for iface_name in netifaces.interfaces():
+        iface_data = netifaces.ifaddresses(iface_name)
+        inet = iface_data.get(netifaces.AF_INET)
+        if inet is not None:
+            ipaddrs.append(inet[0]['addr'])
+
     return render_template('index.html',
                            now=now,
                            events=show_events,
-                           forecasts=forecasts)
+                           forecasts=forecasts,
+                           ipaddrs=ipaddrs)
 
 @app.route('/<path:path>')
 def send_assets(path):
