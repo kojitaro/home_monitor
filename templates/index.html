@@ -1,32 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Free Bootstrap Admin Template : Binary Admin</title>
+    <!-- BOOTSTRAP STYLES-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet"/>
+    <!-- FONTAWESOME STYLES-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet"/>
+    <!-- MORRIS CHART STYLES-->
+    <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet"/>
+    <!-- CUSTOM STYLES-->
+    <link href="assets/css/custom.css" rel="stylesheet"/>
+    <!-- GOOGLE FONTS-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
 </head>
 <body>
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div id="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>{{now.month}}月{{ now.day }}日</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="panel panel-back noti-box">
+                        <h2>予定</h2>
+                        <div class="row">
+                            {% for event in events %}
+                            <div class="col-md-4"><p class="main-text">{{ event.date }}</p></div>
+                            <div class="col-md-8">
+                                <p class="main-text">{% for e in event.events %}
+                                    {{ e.start_time_label() }} {{ e.summary }}<br/>
+                                    {% endfor %}
+                                </p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <dl>
+                        {% for forecast in forecasts %}
+                        <div class="panel panel-back noti-box">
+                            <div class="panel-header"><h3>{{ forecast.dateLabel }}</h3></div>
+                            <div class="panel-body text-center"><img src="{{ forecast.image }}"></div>
+                            <div class="panel-footer text-center">{{ forecast.minLabel }} / {{ forecast.maxLabel }}
+                            </div>
+                            </dt>
+                        </div>
+                        {% endfor %}
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h1>{{now.month}}月{{ now.day }}日</h1>
+<!-- /. WRAPPER  -->
+<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+<!-- JQUERY SCRIPTS -->
+<script src="assets/js/jquery-1.10.2.js"></script>
+<!-- BOOTSTRAP SCRIPTS -->
+<script src="assets/js/bootstrap.min.js"></script>
+<!-- METISMENU SCRIPTS -->
+<script src="assets/js/jquery.metisMenu.js"></script>
+<!-- MORRIS CHART SCRIPTS -->
+<script src="assets/js/morris/raphael-2.1.0.min.js"></script>
+<script src="assets/js/morris/morris.js"></script>
+<!-- CUSTOM SCRIPTS -->
+<script src="assets/js/custom.js"></script>
 
-<h2>今日の予定</h2>
-{% for event in events %}
-<dl>
-    <dt>{{ event.date }}</dt>
-    {% for e in event.events %}
-    <dd>{{ e.print_start_date() }} {{ e.summary }}</dd>
-    {% endfor %}
-</dl>
-{% endfor %}
-
-<h2>天気</h2>
-<dl>
-    {% for forecast in forecasts %}
-    <dt>{{ forecast.dateLabel }}</dt>
-    <dd><img src="{{ forecast.image }}">
-        <div>{{ forecast.minLabel }} / {{ forecast.maxLabel }}</div>
-    </dd>
-    {% endfor %}
-</dl>
 
 </body>
 </html>
+

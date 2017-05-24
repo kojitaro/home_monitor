@@ -1,8 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 from api.gcalendar import get_calendar_events
 from api.weather import get_forecasts
 
 app = Flask(__name__)
+
 
 @app.route("/")
 def index():
@@ -19,7 +20,7 @@ def index():
             cdate = event.startDate
             show_events.append(
                 {
-                    "date": event.startDate,
+                    "date": event.start_date_label(),
                     "events": []
                 }
             )
@@ -32,6 +33,12 @@ def index():
                            now=now,
                            events=show_events,
                            forecasts=forecasts)
+
+@app.route('/<path:path>')
+def send_assets(path):
+    return send_from_directory('static', path)
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

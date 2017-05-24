@@ -40,11 +40,14 @@ class GCalendarEvent():
         self.startDate = datetime.date(dt.year, dt.month, dt.day)
         self.startTime = datetime.time(dt.hour, dt.minute, dt.second)
 
-    def print_start_date(self):
+    def start_time_label(self):
         if self.is_full_day:
             return ""
 
         return "%02d:%02d" %(self.startTime.hour, self.startTime.minute)
+
+    def start_date_label(self):
+        return "%d日" %(self.startDate.day)
 
 
 def get_credentials():
